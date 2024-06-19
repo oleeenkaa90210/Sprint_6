@@ -1,11 +1,8 @@
 import random
-from faker import Faker
 from datetime import datetime, timedelta
 
 
 def generate_order_info():
-
-    faker = Faker('ru_RU')
 
     names = ['Иван', 'Петр', 'Сергей', 'Алексей', 'Михаил']
     surnames = ['Иванов', 'Петров', 'Сидоров', 'Кузнецов', 'Смирнов']

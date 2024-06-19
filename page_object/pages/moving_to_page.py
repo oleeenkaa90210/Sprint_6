@@ -1,25 +1,31 @@
 import allure
+from page_object.data import Urls
+from page_object.locators.moving_to_page_locators import MovingPageLocators
+from page_object.locators.order_page_locators import OrderPageLocators
 from page_object.pages.base_page import BasePage
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class MovingPage(BasePage):
-    @allure.step("Открытие нового окна")
-    def switch_to_new_window(self):
-        WebDriverWait(self.driver, 10).until(EC.number_of_windows_to_be(2))
-        windows = self.driver.window_handles
-        new_window = [window for window in windows if window != self.driver.current_window_handle][0]
-        self.driver.switch_to.window(new_window)
 
     @allure.step("Ожидание перехода на главную страницу")
     def wait_for_main_page(self):
-        WebDriverWait(self.driver, 10).until(EC.url_to_be("https://qa-scooter.praktikum-services.ru/"))
+        self.wait_to_new_url(Urls.MAIN_PAGE)
 
-    @allure.step("Открытие нового окна")
-    def wait_new_window_url(self):
-        WebDriverWait(self.driver, 10).until(EC.url_to_be('https://dzen.ru/?yredirect=true'))
+    @allure.step("Открытие нового окна Dzen")
+    def wait_new_window_dzen(self):
+        self.wait_to_new_url(Urls.DZEN)
 
+    @allure.step("Клик на лого Яндекс")
+    def click_to_logo_yandex(self):
+        self.click_to_element(MovingPageLocators.LOGO_YANDEX)
+
+    @allure.step("Клик на верхнюю кнопку заказать")
+    def click_on_top_button(self):
+        self.click_to_element(OrderPageLocators.ORDER_TOP_BUTTON)
+
+    @allure.step("Клик на лого самокат")
+    def click_on_logo_samokat(self):
+        self.click_to_element(MovingPageLocators.LOGO_SAMOKAT)
 
 
 

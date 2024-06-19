@@ -1,6 +1,5 @@
 import allure
 import pytest
-from page_object.locators.main_pages_locators import MainPageLocators
 from page_object.pages.main_page import MainPage
 
 
@@ -23,18 +22,13 @@ class TestMainPage:
             (7, 'Да, обязательно. Всем самокатов! И Москве, и Московской области.')
         ]
     )
-    @allure.description('Тесты вопросы о важном')
+    @allure.title('Тесты вопросы о важном')
     def test_questions_and_answers(self, driver, open_qa_scooter, num, result):
         main_page = MainPage(driver)
         main_page.scroll_to_questions(num)
         text = main_page.get_answer_text(num)
         assert text == result
 
-        question_locator = main_page.format_locators(MainPageLocators.QUESTION_LOCATOR, num)
-
-        element = driver.find_element(*question_locator)
-        aria_disabled = element.get_attribute('aria-disabled')
-        aria_expanded = element.get_attribute('aria-expanded')
-
+        aria_disabled, aria_expanded = main_page.get_question_status(num)
         assert aria_disabled == 'true', f"Expected aria-disabled='true' but got {aria_disabled}"
         assert aria_expanded == 'true', f"Expected aria-expanded='true' but got {aria_expanded}"
