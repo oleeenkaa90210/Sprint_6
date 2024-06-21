@@ -1,7 +1,6 @@
 import allure
 from page_object.data import Urls
 from page_object.locators.moving_to_page_locators import MovingPageLocators
-from page_object.locators.order_page_locators import OrderPageLocators
 from page_object.pages.base_page import BasePage
 
 
@@ -21,7 +20,7 @@ class MovingPage(BasePage):
 
     @allure.step("Клик на верхнюю кнопку заказать")
     def click_on_top_button(self):
-        self.click_to_element(OrderPageLocators.ORDER_TOP_BUTTON)
+        self.click_to_element(MovingPageLocators.ORDER_TOP_BUTTON)
 
     @allure.step("Клик на лого самокат")
     def click_on_logo_samokat(self):

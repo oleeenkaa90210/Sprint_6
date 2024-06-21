@@ -82,3 +82,22 @@ class OrderPage(BasePage):
     @allure.step("Получить текст модального окна подтверждения")
     def get_text_confirmation_modal(self):
         return self.get_text_from_element(OrderPageLocators.CONFIRMATION_ORDER)
+
+    @allure.step("Создание заказа")
+    def create_order(self, user_info):
+        self.fill_name(user_info['name'])
+        self.fill_surname(user_info['surname'])
+        self.fill_address(user_info['address'])
+        self.click_and_select_metro_station(user_info['metro'])
+        self.fill_phone(user_info['phone'])
+        self.click_to_next_button()
+        self.wait_order_title()
+        self.fill_date(user_info['date'])
+        self.click_on_background()
+        self.click_and_select_rental_period()
+        self.select_random_checkbox()
+        self.click_to_order_button()
+        self.click_to_yes_button()
+        self.wait_confirmation_modal()
+
+        return self.get_text_confirmation_modal()
